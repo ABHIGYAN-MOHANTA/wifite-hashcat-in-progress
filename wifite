@@ -21,8 +21,20 @@ sudo hcxdumptool -i wlan0 -o dumpfile.pcapng --active_beacon --enable_status=15
 sudo systemctl start wpa_supplicant.service
 sudo systemctl start NetworkManager.service
 
+// convert .pcapng file to .hc22000 file
 hcxpcapngtool -o hash.hc22000 -E essidlist dumpfile.pcapng
 
+// to get the bssid
+sudo hcxdumptool --do_rescan -i wlan0
+
+//use the bssid to filter out which one to crack
+//then in kali move .hc22000 file to a backup file
+mv hash.hc22000 hash.hc22000.bk
+
+// create a new .hc22000 file with the same name and paste the filtered content here
+nano hash.hc22000 
+
+//then on the .hc22000 file, either use wordlist or bruteforce with hashcat
 hashcat -m 22000 hash.hc22000 wordlist.txt
 
 Windows:
@@ -30,5 +42,4 @@ hashcat.exe -m 22000 hash.hc22000 -a 3 ?d?d?d?d?d?d?d?d
 
 hashcat.exe -m 22000 hash.hc22000 -a 3 --increment --increment-min 8 --increment-max 18 ?d?d?d?d?d?d?d?d?d?d?d?d?d?d?d?d?d?d
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
