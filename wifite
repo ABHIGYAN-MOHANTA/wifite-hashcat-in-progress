@@ -1,0 +1,11 @@
+192.168.0.1
+sudo wifite
+sudo wifite --wpa --dict /usr/share/wordlists/rockyou.txt --kill
+
+// first capture the handshake
+sudo /usr/share/hashcat-utils/cap2hccapx.bin <file name> wpa2.hccapx
+
+// copy this file to window
+// now inside the hashcat folder open terminal cmd
+hashcat.exe -I
+hashcat.exe -m 2500 -a 3 wp2.hccapx ?d?d?d?d?d?d?d?d
